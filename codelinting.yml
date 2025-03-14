@@ -1,4 +1,4 @@
-name: Laravel Code Linting (MacOS)
+name: Laravel Code Linting
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -23,10 +23,6 @@ jobs:
       - name: Install Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Ensure ESLint & Prettier are Installed
-        run: |
-          npm install --save-dev eslint prettier
-
       - name: Run Laravel Pint Linter
         run: vendor/bin/pint --test
 
@@ -34,7 +30,7 @@ jobs:
         run: vendor/bin/phpcs --standard=PSR12 app/
 
       - name: Run ESLint for JavaScript
-        run: npx eslint resources/js/**/*.js || true
+        run: npx eslint resources/js/**/*.js
 
       - name: Run Prettier for Formatting
-        run: npx prettier --check resources/js/**/*.js || true
+        run: npx prettier --check resources/js/**/*.js
